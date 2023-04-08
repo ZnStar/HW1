@@ -96,15 +96,18 @@ if __name__ == "__main__":
     outputBias = b[b_offset:b_offset + nLabels].reshape(1, nLabels, order='F')
 
     # 热力图
+    plt.figure(figsize=(10,10))
     plt.imshow(inputWeights, cmap='Reds', interpolation='nearest')
     plt.title("first layer")
-    plt.axis('off')
+    plt.axis([0,300,0,784])
+    # plt.axis('off')
     plt.savefig("reds_first.png")
     plt.show()
 
+    plt.figure(figsize=(10, 10))
     plt.imshow(outputWeights, cmap='Reds', interpolation='nearest')
     plt.title("second layer")
-    plt.axis('off')
+    plt.axis([0,10,0,300])
     plt.savefig("reds_second.png")
     plt.show()
 
@@ -127,7 +130,7 @@ if __name__ == "__main__":
 
     layer2_weights = outputWeights.flatten().tolist()
     plt.hist(layer2_weights, bins=100)
-    plt.title("layer1 weights")
+    plt.title("layer2 weights")
     plt.xlabel("value")
     plt.ylabel("frequency")
     plt.savefig("hist_layer2_weights.png")
@@ -135,7 +138,7 @@ if __name__ == "__main__":
 
     layer2_bias = outputBias.flatten().tolist()
     plt.hist(layer2_bias, bins=100)
-    plt.title("layer1 bias")
+    plt.title("layer2 bias")
     plt.xlabel("value")
     plt.ylabel("frequency")
     plt.savefig("hist_layer2_bias.png")

@@ -11,23 +11,42 @@
 
 注：不可使用pytorch，tensorflow等python package，可以使用numpy；
 
+## 文件说明
+
+- `HW1_report_19307130299.pdf`: 实验报告
+- `train.py` : 训练神经网络
+- `test.py`: 测试模型
+- `utils`: 自定义辅助函数，以及用于可视化参数
+- `model.py`： 模型基本结构及梯度更新
+- `try_coefficient`: 在不同超参数列表中选取最优超参数
+- `best_model.mat`：模型
+- `Error_best.jpg`,`Loss_best.jpg`: 训练过程中的Error和Loss曲线
+- `X_test.npy`,`X_train.npy`,`y_test.npy`,`y_train.npy`：MNIST数据集
+
+## 代码运行步骤
+
 ### 训练步骤：
 ```shell
 python train.py
 ```
-可指定参数，如
+默认参数为最优参数，也可指定参数，如
 ```shell
-python train.py --lr 0.1 --regular 0.2
+python train.py --lr 0.1 --iter 300 --regular 0.2 --regular 0.01 --lr_decay 0.1
 ```
+训练过程中会自动绘制Loss和Error图像并保存，训练完成后会保存最优模型`para.mat`，为了不覆盖现有模型和图片，与文件中现有命名不同
 
 ### 测试步骤：
 ```shell
 python test.py
 ```
+可以指定模型，无需后缀和单引号
+```shell
+python test.py --para_path best_model
+```
+测试会输出模型在测试集上的准确率
 
-### 文件说明
-
-- `report.pdf`: 实验报告
-- `train.py` : 对传入参数训练神经网络
-- `test.py`: 测试模型
-- `utils`: 自定义辅助函数
+### 最优超参数查找
+```shell
+python try_coefficient.py --lr 1e-2 1e-3 1e-4 --iter 300 --layer 50 100 300 --regular 1e-2 1e-3 1e-4 1e-5
+```
+可以在给定范围中返回最优参数
